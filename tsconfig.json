@@ -3,10 +3,12 @@
 		"target": "es6",
 		"module": "commonjs",
 		"outDir": "./out",
+		"noImplicitAny": false,
+        "sourceMap": false,
 		"experimentalDecorators":true
 	},
 	"include": [
 		"src/**/*.ts",
-		"../engine/out/**/*.d.ts"
+		"engine/*.d.ts"
 	]
 }
