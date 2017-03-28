@@ -2,13 +2,13 @@
 	"compilerOptions": {
 		"target": "es6",
 		"module": "commonjs",
-		"outDir": "./out",
+		"outDir": "out",
 		"noImplicitAny": false,
         "sourceMap": false,
 		"experimentalDecorators":true
 	},
 	"include": [
 		"src/**/*.ts",
-		"engine/*.d.ts"
+		"engine/**/*.d.ts"
 	]
 }
