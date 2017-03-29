@@ -1,3 +1,4 @@
+"use strict";
 class WalkCommand {
     constructor(_tmain) {
         this._tmain = _tmain;

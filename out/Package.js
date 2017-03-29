@@ -1,3 +1,4 @@
+"use strict";
 class Package {
     constructor() {
         this.backpack = [];

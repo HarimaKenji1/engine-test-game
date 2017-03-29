@@ -26,6 +26,7 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
+"use strict";
 let TIME = 0;
 class Main extends engine.DisplayObjectContainer {
     constructor(stage, touchEventService) {

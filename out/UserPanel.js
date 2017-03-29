@@ -1,3 +1,4 @@
+"use strict";
 class UserPanel extends engine.DisplayObjectContainer {
     constructor() {
         super();

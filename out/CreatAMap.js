@@ -1,3 +1,4 @@
+"use strict";
 class TileMap extends engine.DisplayObjectContainer {
     constructor() {
         super();

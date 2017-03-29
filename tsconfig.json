@@ -5,6 +5,7 @@
 		"outDir": "out",
 		"noImplicitAny": false,
         "sourceMap": false,
+		"alwaysStrict": true,
 		"experimentalDecorators":true
 	},
 	"include": [

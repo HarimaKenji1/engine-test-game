@@ -1,3 +1,4 @@
+"use strict";
 class TileNode {
     constructor(x, y) {
         this.walkable = true;

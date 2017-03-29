@@ -20,6 +20,10 @@ interface TaskConditionContext {
 class EventEmitter {
     public observerList: Observer[] = [];
 
+    constructor(){
+        
+    }
+
     // constructor(){
     //     this.observerList = [];
     // }
@@ -199,6 +203,11 @@ class TaskService extends EventEmitter implements Observer {
     private taskList: {
         [index: string]: Task
     } = {};
+
+    constructor(){
+        super();
+    }
+    
     static getInstance(): TaskService {
         if (TaskService.instance == null) {
             TaskService.instance = new TaskService();
@@ -325,7 +334,7 @@ function creatTaskCondition(id: string) {
         if (!info) {
             console.error('missing task')
         }
-        var condition = this.creatTaskCondition(info.condition);
+        var condition = creatTaskCondition(info.condition);
         return new Task(id, info.name, info.desc, info.total, info.status, condition, info.condition,info.fromNpcId, info.toNpcId,info.preTaskListId,info.rewardEquipmentId);
     }
 

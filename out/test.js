@@ -1,3 +1,4 @@
+"use strict";
 var canvas = document.getElementById("app");
 var stage = engine.run(canvas);
 var touchService = engine.TouchEventService.getInstance();

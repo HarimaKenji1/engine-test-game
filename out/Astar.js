@@ -1,3 +1,4 @@
+"use strict";
 class AStar {
     constructor() {
         this.straightCost = 1.0;

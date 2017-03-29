@@ -1,3 +1,4 @@
+"use strict";
 var TaskStatus;
 (function (TaskStatus) {
     TaskStatus[TaskStatus["UNACCEPTABLE"] = 0] = "UNACCEPTABLE";
@@ -118,17 +119,8 @@ class KillMonsterTaskCondition {
 }
 class TaskService extends EventEmitter {
     constructor() {
-        super(...arguments);
+        super();
         this.taskList = {};
-        // public init(){
-        //     var config : Task[] = [
-        //         {id : "task_00",name:"任务01",desc: "点击NPC_1,在NPC_2交任务" ,status :　TaskStatus.UNACCEPTABLE,fromNpcId : "npc_0", toNpcId: "npc_1"},
-        //         //{id : "task_01",name:"任务02",desc: "点击NPC_2,在NPC_1交任务",status :　TaskStatus.UNACCEPTABLE,fromNpcId : "npc_1", toNpcId: "npc_0"}
-        //     ]
-        //     for( var i = 0 ; i <　config.length ; i++){
-        //         this.addTask(config[i]);
-        //     }
-        // }
     }
     static getInstance() {
         if (TaskService.instance == null) {
@@ -225,7 +217,7 @@ function creatTask(id) {
     if (!info) {
         console.error('missing task');
     }
-    var condition = this.creatTaskCondition(info.condition);
+    var condition = creatTaskCondition(info.condition);
     return new Task(id, info.name, info.desc, info.total, info.status, condition, info.condition, info.fromNpcId, info.toNpcId, info.preTaskListId, info.rewardEquipmentId);
 }
 class TaskPanel extends engine.DisplayObjectContainer {

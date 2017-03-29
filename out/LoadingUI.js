@@ -26,6 +26,7 @@
 //  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 //////////////////////////////////////////////////////////////////////////////////////
+"use strict";
 // class LoadingUI extends engine.Sprite {
 //     public constructor() {
 //         super();

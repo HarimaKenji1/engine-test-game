@@ -1,3 +1,4 @@
+"use strict";
 var MonsterState;
 (function (MonsterState) {
     MonsterState[MonsterState["LIVE"] = 0] = "LIVE";
