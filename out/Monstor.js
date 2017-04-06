@@ -10,10 +10,8 @@ class Monster extends engine.DisplayObjectContainer {
         this.width = 64;
         this.height = 64;
         this.monsterPicture = new engine.Bitmap();
-        engine.RES.getRes(pictureId).then((value) => {
+        this.monsterPicture.texture = engine.RES.getRES(pictureId, (value) => {
             this.monsterPicture.texture = value;
-            this.monsterPicture.setWidth(this.monsterPicture.texture.width);
-            this.monsterPicture.setHeight(this.monsterPicture.texture.height);
         });
         this.addChild(this.monsterPicture);
         this.monsterPicture.x = 0;
@@ -55,6 +53,9 @@ class MonsterService {
     }
     getMonster(id) {
         return this.monsterList[id];
+    }
+    deleteMonster(id) {
+        this.monsterList[id] = null;
     }
 }
 function creatMonster(id) {

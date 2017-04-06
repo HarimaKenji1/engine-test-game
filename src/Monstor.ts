@@ -1,29 +1,27 @@
-enum MonsterState{
+enum MonsterState {
     LIVE,
     DEAD
 }
 
-class Monster extends engine.DisplayObjectContainer{
-    public name : string;
-    public monsterID : string;
-    private monsterPictureId : string;
-    public monsterPicture : engine.Bitmap;
-    private maxHP : number;
-    private currentHP : number;
-    private state : MonsterState;
-    public posX : number;
-    public posY : number;
+class Monster extends engine.DisplayObjectContainer {
+    public name: string;
+    public monsterID: string;
+    private monsterPictureId: string;
+    public monsterPicture: engine.Bitmap;
+    private maxHP: number;
+    private currentHP: number;
+    private state: MonsterState;
+    public posX: number;
+    public posY: number;
 
-    constructor(id,name,pictureId,maxHP,x,y){
+    constructor(id, name, pictureId, maxHP, x, y) {
         super();
         this.width = 64;
         this.height = 64;
         this.monsterPicture = new engine.Bitmap();
-        engine.RES.getRes(pictureId).then((value) => {
-                    this.monsterPicture.texture  = value;
-                    this.monsterPicture.setWidth(this.monsterPicture.texture.width);
-                        this.monsterPicture.setHeight(this.monsterPicture.texture.height);
-                    });
+        this.monsterPicture.texture = engine.RES.getRES(pictureId, (value) => {
+            this.monsterPicture.texture = value;
+        })
         this.addChild(this.monsterPicture);
         this.monsterPicture.x = 0;
         this.monsterPicture.y = 0;
@@ -37,23 +35,23 @@ class Monster extends engine.DisplayObjectContainer{
         this.posY = y;
     }
 
-    public BeenAttacked(damage : number){
+    public BeenAttacked(damage: number) {
         this.currentHP -= damage;
         this.checkState();
     }
 
-    public checkState(){
-        if(this.currentHP <= 0){
+    public checkState() {
+        if (this.currentHP <= 0) {
             this.state = MonsterState.DEAD;
         }
     }
 
-    public getMonsterState(){
+    public getMonsterState() {
         return this.state;
     }
 }
 
-class MonsterService{
+class MonsterService {
     private static instance;
     private monsterList: {
         [index: string]: Monster
@@ -70,23 +68,28 @@ class MonsterService{
         this.monsterList[monster.monsterID] = monster;
     }
 
-    public getMonster(id : string){
+    public getMonster(id: string) {
         return this.monsterList[id];
     }
 
-    
+    public deleteMonster(id :string){
+        this.monsterList[id] = null;
+    }
+
+
+
 
 
 }
 
-function creatMonster(id:string){
-        var data = {
-            "slime01":{id:"slime01",name:"slime",pictureId:"Slime.png",maxHP:100,x:64 * 5,y:64*4},
-            "slime02":{id:"slime02",name:"slime",pictureId:"Slime.png",maxHP:100,x:64 * 4,y:64*6},
-        }
-        var info = data[id];
-        if (!info) {
-            console.error('missing monster')
-        }
-        return new Monster(info.id,info.name,info.pictureId,info.maxHP,info.x,info.y);
+function creatMonster(id: string) {
+    var data = {
+        "slime01": { id: "slime01", name: "slime", pictureId: "Slime.png", maxHP: 100, x: 64 * 5, y: 64 * 4 },
+        "slime02": { id: "slime02", name: "slime", pictureId: "Slime.png", maxHP: 100, x: 64 * 4, y: 64 * 6 },
     }
+    var info = data[id];
+    if (!info) {
+        console.error('missing monster')
+    }
+    return new Monster(info.id, info.name, info.pictureId, info.maxHP, info.x, info.y);
+}

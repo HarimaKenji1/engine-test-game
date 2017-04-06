@@ -14,5 +14,11 @@ var touchService = engine.TouchEventService.getInstance();
 //     //console.log("aaa");
 //     bitmap.setWidth(500);
 // });
-var main = new Main(stage, touchService);
-main.createGameScene();
+engine.RES.getRES("RES.json", (data) => {
+    var preloadJson = data;
+    engine.RES.loadConfig(preloadJson, () => {
+        console.log("load complete!!!");
+        var main = new Main(stage, touchService);
+        main.createGameScene();
+    });
+});

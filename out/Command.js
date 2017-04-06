@@ -38,9 +38,12 @@ class FightCommand {
                 console.log("结束战斗");
                 this.target.BeenAttacked(this.damage);
                 this.player.SetState(new IdleState(), this._tmain);
+                console.log(this._tmain.monsterAttacking);
+                console.log(this._tmain.stage);
                 if (this._tmain.monsterAttacking.getMonsterState() == MonsterState.DEAD) {
                     this._tmain.screenService.monsterBeenKilled("task_01");
-                    this._tmain.removeChild(this._tmain.stage.monsterAttacking);
+                    this._tmain.stage.removeChild(this._tmain.monsterAttacking);
+                    MonsterService.getInstance().deleteMonster(this._tmain.monsterAttacking.monsterID);
                 }
                 callback();
             }

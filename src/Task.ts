@@ -356,8 +356,8 @@ class TaskPanel extends engine.DisplayObjectContainer implements Observer {
 
         this.background = this.createBitmapByName("renwumianbanbeijing.png");
         this.addChild(this.background);
-        this.background.setWidth(256);
-        this.background.setHeight(317);
+        this.background.width = 256;
+        this.background.height = 317;
         this.background.x = 0;
         this.background.y = 0;
 
@@ -370,7 +370,7 @@ class TaskPanel extends engine.DisplayObjectContainer implements Observer {
         this.textField.size = 15;
         this.textField.textColor = "0x000000";
         this.addChild(this.textField);
-        this.textField.setWidth(200);
+        this.textField.width = 200;
         this.textField.x = 30;
         this.textField.y = 80;
 
@@ -404,13 +404,11 @@ class TaskPanel extends engine.DisplayObjectContainer implements Observer {
     }
 
 
-    private createBitmapByName(name: string): engine.Bitmap {
+    private createBitmapByName(name: string){
         var result = new engine.Bitmap();
-        engine.RES.getRes(name).then((value) => {
-                    result.texture = value;
-                    result.setWidth(result.texture.width);
-                    result.setHeight(result.texture.height);
-                    });
+        result.texture = engine.RES.getRES(name,(value) => {
+           result.texture = value;
+        })
         return result;
     }
 

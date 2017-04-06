@@ -53,6 +53,10 @@ class Main extends engine.DisplayObjectContainer {
         this.stage = stage;
         this.touchEvnetSetvice = touchEventService;
     }
+    killTheMonster() {
+        stage.removeChild(this.monsterAttacking);
+    }
+    ;
     //private equipmentInformationPanel : EquipmentInformationPanel;
     /**
      * 创建游戏场景
@@ -85,7 +89,7 @@ class Main extends engine.DisplayObjectContainer {
         this.taskPanel = new TaskPanel();
         TaskService.getInstance().addObserver(this.taskPanel);
         this.stage.addChild(this.taskPanel);
-        this.taskPanel.x = this.stage.width - this.taskPanel.getWidth();
+        this.taskPanel.x = this.stage.width - this.taskPanel.width;
         this.taskPanel.y = 0;
         this.NPC01 = new NPC("npc_0", "NPC_Man_01.png", this.Npc01Dialogue);
         this.NPC01.setTaskAcceptDialogue(this.Npc01AcceptDialogue);
@@ -122,13 +126,11 @@ class Main extends engine.DisplayObjectContainer {
         this.dialoguePanel.x = 200;
         this.dialoguePanel.y = 200;
         this.userPanelButton = new engine.Bitmap();
-        engine.RES.getRes("userPanelButton.png").then((value) => {
+        this.userPanelButton.texture = engine.RES.getRES("userPanelButton.png", (value) => {
             this.userPanelButton.texture = value;
-            this.userPanelButton.setWidth(this.userPanelButton.texture.width);
-            this.userPanelButton.setHeight(this.userPanelButton.texture.height);
-            this.userPanelButton.x = 10 * 64 - this.userPanelButton.getWidth();
-            this.userPanelButton.y = 0;
         });
+        this.userPanelButton.x = 10 * 64 - this.userPanelButton.width;
+        this.userPanelButton.y = 0;
         // this.userPanelButton = new engine.Bitmap("userPanelButton.png");
         this.stage.addChild(this.userPanelButton);
         this.stage.addChild(this.Player.PersonBitmap);
@@ -179,8 +181,8 @@ class Main extends engine.DisplayObjectContainer {
         this.userPanel = new UserPanel();
         //this.stage.addChild(this.userPanel);
         this.userPanel.showHeroInformation(this.hero);
-        this.userPanel.x = (this.stage.width - this.userPanel.getWidth()) / 2;
-        this.userPanel.y = (this.stage.height - this.userPanel.getHeight()) / 2;
+        this.userPanel.x = (this.stage.width - this.userPanel.width) / 2;
+        this.userPanel.y = (this.stage.height - this.userPanel.height) / 2;
         //this.userPanel.equipmentInformationPanel.showEquipmentInformation(this.sword);
         this.userPanelButton.addEventListener(engine.TouchEventsType.CLICK, (e) => {
             this.stage.addChild(this.userPanel);
@@ -196,7 +198,7 @@ class Main extends engine.DisplayObjectContainer {
             //var tempTile : Tile;
             NPC.npcIsChoose = null;
             this.ifFight = false;
-            if (this.userPanelIsOn && (engine.TouchEventService.stageX < this.userPanel.x || engine.TouchEventService.stageX > this.userPanel.x + this.userPanel.getWidth() || engine.TouchEventService.stageY < this.userPanel.y || engine.TouchEventService.stageY > this.userPanel.y + this.userPanel.getHeight())) {
+            if (this.userPanelIsOn && (engine.TouchEventService.stageX < this.userPanel.x || engine.TouchEventService.stageX > this.userPanel.x + this.userPanel.width || engine.TouchEventService.stageY < this.userPanel.y || engine.TouchEventService.stageY > this.userPanel.y + this.userPanel.height)) {
                 this.stage.removeChild(this.userPanel);
                 this.userPanelIsOn = false;
             }
@@ -258,7 +260,7 @@ class Main extends engine.DisplayObjectContainer {
             // this.PictureMove(this.Stage01Background);
             if (this.ifFindAWay)
                 this.map01.startTile = this.map01.endTile;
-            if (this.EventPoint.x >= this.userPanelButton.x && this.EventPoint.y <= this.userPanelButton.getHeight()) {
+            if (this.EventPoint.x >= this.userPanelButton.x && this.EventPoint.y <= this.userPanelButton.height) {
                 this.stage.addChild(this.userPanel);
                 this.userPanel.showHeroInformation(this.hero);
                 this.userPanelIsOn = true;
@@ -282,15 +284,6 @@ class Main extends engine.DisplayObjectContainer {
      * 根据name关键字创建一个Bitmap对象。name属性请参考resources/resource.json配置文件的内容。
      * Create a Bitmap object according to name keyword.As for the property of name please refer to the configuration file of resources/resource.json.
      */
-    createBitmapByName(name) {
-        var result = new engine.Bitmap();
-        engine.RES.getRes(name).then((value) => {
-            result.texture = value;
-            result.setWidth(result.texture.width);
-            result.setHeight(result.texture.height);
-        });
-        return result;
-    }
     /**
      * 描述文件加载成功，开始播放动画
      * Description file loading is successful, start to play the animation
@@ -442,10 +435,8 @@ class Main extends engine.DisplayObjectContainer {
                         fight = 0;
                         var textureName = "00" + standArr[n] + ".png";
                         //var texture : egret.Texture = RES.getRes(textureName);
-                        engine.RES.getRes(textureName).then((value) => {
+                        self.Player.PersonBitmap.texture = engine.RES.getRES(textureName, (value) => {
                             self.Player.PersonBitmap.texture = value;
-                            self.Player.PersonBitmap.setWidth(self.Player.PersonBitmap.texture.width);
-                            self.Player.PersonBitmap.setHeight(self.Player.PersonBitmap.texture.height);
                         });
                         n++;
                         if (n >= standArr.length) {
@@ -458,10 +449,8 @@ class Main extends engine.DisplayObjectContainer {
                         fight = 0;
                         var textureName = "00" + walkRightArr[GOR] + ".png";
                         //var texture : egret.Texture = RES.getRes(textureName);
-                        engine.RES.getRes(textureName).then((value) => {
+                        self.Player.PersonBitmap.texture = engine.RES.getRES(textureName, (value) => {
                             self.Player.PersonBitmap.texture = value;
-                            self.Player.PersonBitmap.setWidth(self.Player.PersonBitmap.texture.width);
-                            self.Player.PersonBitmap.setHeight(self.Player.PersonBitmap.texture.height);
                         });
                         GOR++;
                         if (GOR >= walkRightArr.length) {
@@ -474,10 +463,8 @@ class Main extends engine.DisplayObjectContainer {
                         fight = 0;
                         var textureName = "00" + walkRightArr[GOL] + "_2.png";
                         //var texture : egret.Texture = RES.getRes(textureName);
-                        engine.RES.getRes(textureName).then((value) => {
+                        self.Player.PersonBitmap.texture = engine.RES.getRES(textureName, (value) => {
                             self.Player.PersonBitmap.texture = value;
-                            self.Player.PersonBitmap.setWidth(self.Player.PersonBitmap.texture.width);
-                            self.Player.PersonBitmap.setHeight(self.Player.PersonBitmap.texture.height);
                         });
                         GOL++;
                         if (GOL >= walkRightArr.length) {
@@ -490,10 +477,8 @@ class Main extends engine.DisplayObjectContainer {
                         n = 0;
                         var textureName = "020" + fightArr[fight] + ".png";
                         //var texture : egret.Texture = RES.getRes(textureName);
-                        engine.RES.getRes(textureName).then((value) => {
+                        self.Player.PersonBitmap.texture = engine.RES.getRES(textureName, (value) => {
                             self.Player.PersonBitmap.texture = value;
-                            self.Player.PersonBitmap.setWidth(self.Player.PersonBitmap.texture.width);
-                            self.Player.PersonBitmap.setHeight(self.Player.PersonBitmap.texture.height);
                         });
                         fight++;
                         if (fight >= fightArr.length) {
@@ -569,8 +554,8 @@ class Person {
         this.GoRight = false;
         this.GoLeft = false;
         this.PersonBitmap = new engine.Bitmap();
-        this.PersonBitmap.setWidth(49);
-        this.PersonBitmap.setHeight(64);
+        this.PersonBitmap.width = 49;
+        this.PersonBitmap.height = 64;
         // this.PersonBitmap.anchorOffsetX = 2 * this.PersonBitmap.width / 3;
         // this.PersonBitmap.anchorOffsetY = this.PersonBitmap.height;
         this.IsIdle = true;
@@ -613,10 +598,6 @@ class Person {
     }
     GetIfGoLeft() {
         return this.GoLeft;
-    }
-    createBitmapByName(name) {
-        var result = new engine.Bitmap(name);
-        return result;
     }
     SetState(e, _tmain) {
         this.IdleOrWalkStateMachine.setState(e, _tmain);
