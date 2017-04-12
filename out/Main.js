@@ -28,12 +28,12 @@
 //////////////////////////////////////////////////////////////////////////////////////
 "use strict";
 let TIME = 0;
-class Main extends engine.DisplayObjectContainer {
+class Main extends cadence.DisplayObjectContainer {
     constructor(stage, touchEventService) {
         super();
-        this.EventPoint = new engine.Point(0, 0);
-        this.GoalPoint = new engine.Point(-1, -1);
-        this.DistancePoint = new engine.Point(-1, -1);
+        this.EventPoint = new cadence.Point(0, 0);
+        this.GoalPoint = new cadence.Point(-1, -1);
+        this.DistancePoint = new cadence.Point(-1, -1);
         this.MoveTime = 0;
         this.tileSize = 64;
         this.ifFindAWay = false;
@@ -125,13 +125,13 @@ class Main extends engine.DisplayObjectContainer {
         this.stage.addChild(this.dialoguePanel);
         this.dialoguePanel.x = 200;
         this.dialoguePanel.y = 200;
-        this.userPanelButton = new engine.Bitmap();
-        this.userPanelButton.texture = engine.RES.getRES("userPanelButton.png", (value) => {
+        this.userPanelButton = new cadence.Bitmap();
+        this.userPanelButton.texture = cadence.RES.getRES("userPanelButton.png", (value) => {
             this.userPanelButton.texture = value;
         });
         this.userPanelButton.x = 10 * 64 - this.userPanelButton.width;
         this.userPanelButton.y = 0;
-        // this.userPanelButton = new engine.Bitmap("userPanelButton.png");
+        // this.userPanelButton = new cadence.Bitmap("userPanelButton.png");
         this.stage.addChild(this.userPanelButton);
         this.stage.addChild(this.Player.PersonBitmap);
         this.Player.PersonBitmap.x = 0;
@@ -184,7 +184,7 @@ class Main extends engine.DisplayObjectContainer {
         this.userPanel.x = (this.stage.width - this.userPanel.width) / 2;
         this.userPanel.y = (this.stage.height - this.userPanel.height) / 2;
         //this.userPanel.equipmentInformationPanel.showEquipmentInformation(this.sword);
-        this.userPanelButton.addEventListener(engine.TouchEventsType.CLICK, (e) => {
+        this.userPanelButton.addEventListener(cadence.TouchEventsType.CLICK, (e) => {
             this.stage.addChild(this.userPanel);
             this.userPanel.showHeroInformation(this.hero);
             //console.log("upbdown");
@@ -192,13 +192,13 @@ class Main extends engine.DisplayObjectContainer {
         //根据name关键字，异步获取一个json配置文件，name属性请参考resources/resource.json配置文件的内容。
         // Get asynchronously a json configuration file according to name keyword. As for the property of name please refer to the configuration file of resources/resource.json.
         //RES.getResAsync("description_json", this.startAnimation, this)
-        this.stage.addEventListener(engine.TouchEventsType.MOUSEDOWN, (e) => {
+        this.stage.addEventListener(cadence.TouchEventsType.MOUSEDOWN, (e) => {
             //egret.Tween.removeTweens(this.Player.PersonBitmap);
             //this.ifStartMove = true;
             //var tempTile : Tile;
             NPC.npcIsChoose = null;
             this.ifFight = false;
-            if (this.userPanelIsOn && (engine.TouchEventService.stageX < this.userPanel.x || engine.TouchEventService.stageX > this.userPanel.x + this.userPanel.width || engine.TouchEventService.stageY < this.userPanel.y || engine.TouchEventService.stageY > this.userPanel.y + this.userPanel.height)) {
+            if (this.userPanelIsOn && (cadence.TouchEventService.stageX < this.userPanel.x || cadence.TouchEventService.stageX > this.userPanel.x + this.userPanel.width || cadence.TouchEventService.stageY < this.userPanel.y || cadence.TouchEventService.stageY > this.userPanel.y + this.userPanel.height)) {
                 this.stage.removeChild(this.userPanel);
                 this.userPanelIsOn = false;
             }
@@ -212,8 +212,8 @@ class Main extends engine.DisplayObjectContainer {
             this.Player.PersonBitmap.y = this.playery * 64;
             this.currentPath = 0;
             //console.log(playerx + " And " + playery);
-            this.EventPoint.x = engine.TouchEventService.stageX;
-            this.EventPoint.y = engine.TouchEventService.stageY;
+            this.EventPoint.x = cadence.TouchEventService.stageX;
+            this.EventPoint.y = cadence.TouchEventService.stageY;
             this.tileX = Math.floor(this.EventPoint.x / this.tileSize);
             this.tileY = Math.floor(this.EventPoint.y / this.tileSize);
             for (var npc of this.npcList) {
@@ -314,7 +314,7 @@ class Main extends engine.DisplayObjectContainer {
     PlayerMove() {
         var self = this;
         var getDistance;
-        engine.Ticker.getInstance().register(() => {
+        cadence.Ticker.getInstance().register(() => {
             if (this.ifStartMove && self.ifFindAWay) {
                 if (self.currentPath < self.astar.pathArray.length - 1) {
                     var distanceX = self.astar.pathArray[self.currentPath + 1].x - self.astar.pathArray[self.currentPath].x;
@@ -389,7 +389,7 @@ class Main extends engine.DisplayObjectContainer {
         //         self.MoveTime = Math.abs(distanceX) * 3 + Math.abs(distanceY) * 3;
         //    }
     }
-    // public PictureMove(pic : engine.Bitmap):void{
+    // public PictureMove(pic : cadence.Bitmap):void{
     //     var self:any = this;
     //     var MapMove:Function = function (){
     //         egret.Tween.removeTweens(pic);
@@ -427,7 +427,7 @@ class Main extends engine.DisplayObjectContainer {
         var fightArr = ["0", "1", "2", "3", "4", "5", "6", "7", "8"];
         var MoveAnimation = function () {
             //var playerBitmap = egret.Tween.get(self.Player.PersonBitmap);
-            engine.Ticker.getInstance().register(() => {
+            cadence.Ticker.getInstance().register(() => {
                 if (zhen % 4 == 0) {
                     if (self.Player.GetIfIdle() && !self.Player.GetIfWalk() && !self.Player.GetIfFight()) {
                         GOR = 0;
@@ -435,7 +435,7 @@ class Main extends engine.DisplayObjectContainer {
                         fight = 0;
                         var textureName = "00" + standArr[n] + ".png";
                         //var texture : egret.Texture = RES.getRes(textureName);
-                        self.Player.PersonBitmap.texture = engine.RES.getRES(textureName, (value) => {
+                        self.Player.PersonBitmap.texture = cadence.RES.getRES(textureName, (value) => {
                             self.Player.PersonBitmap.texture = value;
                         });
                         n++;
@@ -449,7 +449,7 @@ class Main extends engine.DisplayObjectContainer {
                         fight = 0;
                         var textureName = "00" + walkRightArr[GOR] + ".png";
                         //var texture : egret.Texture = RES.getRes(textureName);
-                        self.Player.PersonBitmap.texture = engine.RES.getRES(textureName, (value) => {
+                        self.Player.PersonBitmap.texture = cadence.RES.getRES(textureName, (value) => {
                             self.Player.PersonBitmap.texture = value;
                         });
                         GOR++;
@@ -463,7 +463,7 @@ class Main extends engine.DisplayObjectContainer {
                         fight = 0;
                         var textureName = "00" + walkRightArr[GOL] + "_2.png";
                         //var texture : egret.Texture = RES.getRes(textureName);
-                        self.Player.PersonBitmap.texture = engine.RES.getRES(textureName, (value) => {
+                        self.Player.PersonBitmap.texture = cadence.RES.getRES(textureName, (value) => {
                             self.Player.PersonBitmap.texture = value;
                         });
                         GOL++;
@@ -477,7 +477,7 @@ class Main extends engine.DisplayObjectContainer {
                         n = 0;
                         var textureName = "020" + fightArr[fight] + ".png";
                         //var texture : egret.Texture = RES.getRes(textureName);
-                        self.Player.PersonBitmap.texture = engine.RES.getRES(textureName, (value) => {
+                        self.Player.PersonBitmap.texture = cadence.RES.getRES(textureName, (value) => {
                             self.Player.PersonBitmap.texture = value;
                         });
                         fight++;
@@ -503,7 +503,7 @@ class Main extends engine.DisplayObjectContainer {
             //egret.Tween.get(self.Player.PersonBitmap).call(IdleAnimation,self);
         };
         var FramePlus = function () {
-            engine.Ticker.getInstance().register(() => {
+            cadence.Ticker.getInstance().register(() => {
                 zhen++;
                 if (zhen == 400)
                     zhen = 0;
@@ -553,7 +553,7 @@ class Person {
     constructor() {
         this.GoRight = false;
         this.GoLeft = false;
-        this.PersonBitmap = new engine.Bitmap();
+        this.PersonBitmap = new cadence.Bitmap();
         this.PersonBitmap.width = 49;
         this.PersonBitmap.height = 64;
         // this.PersonBitmap.anchorOffsetX = 2 * this.PersonBitmap.width / 3;

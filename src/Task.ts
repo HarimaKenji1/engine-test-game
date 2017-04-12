@@ -338,11 +338,11 @@ function creatTaskCondition(id: string) {
         return new Task(id, info.name, info.desc, info.total, info.status, condition, info.condition,info.fromNpcId, info.toNpcId,info.preTaskListId,info.rewardEquipmentId);
     }
 
-class TaskPanel extends engine.DisplayObjectContainer implements Observer {
+class TaskPanel extends cadence.DisplayObjectContainer implements Observer {
 
-    textField: engine.TextField;
+    textField: cadence.TextField;
     //button : egret.Bitmap;
-    background: engine.Bitmap;
+    background: cadence.Bitmap;
     show: string[] = [];
     private taskList: Task[] = [];
     private ifAccept: boolean;
@@ -361,7 +361,7 @@ class TaskPanel extends engine.DisplayObjectContainer implements Observer {
         this.background.x = 0;
         this.background.y = 0;
 
-        this.textField = new engine.TextField();
+        this.textField = new cadence.TextField();
         this.addChild(this.textField);
         this.textField.x = this.width / 2 - 100;
         this.textField.y = this.height / 2;
@@ -405,8 +405,8 @@ class TaskPanel extends engine.DisplayObjectContainer implements Observer {
 
 
     private createBitmapByName(name: string){
-        var result = new engine.Bitmap();
-        result.texture = engine.RES.getRES(name,(value) => {
+        var result = new cadence.Bitmap();
+        result.texture = cadence.RES.getRES(name,(value) => {
            result.texture = value;
         })
         return result;

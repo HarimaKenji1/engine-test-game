@@ -1,4 +1,4 @@
-class TileMap extends engine.DisplayObjectContainer{
+class TileMap extends cadence.DisplayObjectContainer{
 
     private size = 2;
     private TextruesSize = 64;
@@ -195,7 +195,7 @@ class TileMap extends engine.DisplayObjectContainer{
 
 }
 
-class Tile extends engine.DisplayObjectContainer{
+class Tile extends cadence.DisplayObjectContainer{
     public bitmaps;
     public bitmapSize = 64;
     public tileData : TileData;
@@ -205,9 +205,9 @@ class Tile extends engine.DisplayObjectContainer{
     constructor(tiledata : TileData){
         super();
         this.tileData = tiledata;
-        this.bitmaps = new engine.Bitmap(tiledata.pictureName);
+        this.bitmaps = new cadence.Bitmap(tiledata.pictureName);
         this.addChild(this.bitmaps);
-        this.bitmaps.texture = engine.RES.getRES(tiledata.pictureName,(value) => {
+        this.bitmaps.texture = cadence.RES.getRES(tiledata.pictureName,(value) => {
         this.bitmaps.texture = value;
         })
         this.bitmaps.width = this.bitmapSize;

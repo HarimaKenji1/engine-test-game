@@ -19,7 +19,7 @@ class WalkCommand implements Command{
             this._tmain.Player.SetState(new WalkingState(),this._tmain);
             this._tmain.ifStartMove = true;
 
-            engine.Ticker.getInstance().register(()=>{
+            cadence.Ticker.getInstance().register(()=>{
                 if(this._tmain.ifStartMove == false && WalkCommand.canFinish){
                     callback();
                     WalkCommand.canFinish = false;
@@ -53,7 +53,7 @@ class FightCommand implements Command{
     execute(callback: Function){
         console.log("开始战斗")
         this.player.SetState(new FightState(),this._tmain);
-        engine.setTimeout(() => {
+        cadence.setTimeout(() => {
             if (!this._hasBeenCancelled) {
                 console.log("结束战斗")
                 this.target.BeenAttacked(this.damage);
@@ -73,7 +73,7 @@ class FightCommand implements Command{
     cancel(callback: Function){
         console.log("脱离战斗")
         this._hasBeenCancelled = true;
-        engine.setTimeout(function () {
+        cadence.setTimeout(function () {
             this.player.SetState(new IdleState(),this._tmain);
             callback();
         }, 100)
@@ -99,7 +99,7 @@ class TalkCommand implements Command{
         this.NPCToTalk.onNPCClick();
         this._tmain.canMove = false;
 
-        engine.Ticker.getInstance().register(()=>{
+        cadence.Ticker.getInstance().register(()=>{
                 if(TalkCommand.canFinish){
                     TalkCommand.canFinish = false;
                     NPC.npcIsChoose = null;
@@ -151,7 +151,7 @@ class CommandList {
 
     execute() {
         if (this._frozen) {
-            engine.setTimeout(this.execute, 100);
+            cadence.setTimeout(this.execute, 100);
             return;
         }
 

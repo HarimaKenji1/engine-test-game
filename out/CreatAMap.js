@@ -1,5 +1,5 @@
 "use strict";
-class TileMap extends engine.DisplayObjectContainer {
+class TileMap extends cadence.DisplayObjectContainer {
     constructor() {
         super();
         this.size = 2;
@@ -159,14 +159,14 @@ class TileMap extends engine.DisplayObjectContainer {
         return this.startTile;
     }
 }
-class Tile extends engine.DisplayObjectContainer {
+class Tile extends cadence.DisplayObjectContainer {
     constructor(tiledata) {
         super();
         this.bitmapSize = 64;
         this.tileData = tiledata;
-        this.bitmaps = new engine.Bitmap(tiledata.pictureName);
+        this.bitmaps = new cadence.Bitmap(tiledata.pictureName);
         this.addChild(this.bitmaps);
-        this.bitmaps.texture = engine.RES.getRES(tiledata.pictureName, (value) => {
+        this.bitmaps.texture = cadence.RES.getRES(tiledata.pictureName, (value) => {
             this.bitmaps.texture = value;
         });
         this.bitmaps.width = this.bitmapSize;

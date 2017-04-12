@@ -3,11 +3,11 @@ enum MonsterState {
     DEAD
 }
 
-class Monster extends engine.DisplayObjectContainer {
+class Monster extends cadence.DisplayObjectContainer {
     public name: string;
     public monsterID: string;
     private monsterPictureId: string;
-    public monsterPicture: engine.Bitmap;
+    public monsterPicture: cadence.Bitmap;
     private maxHP: number;
     private currentHP: number;
     private state: MonsterState;
@@ -18,8 +18,8 @@ class Monster extends engine.DisplayObjectContainer {
         super();
         this.width = 64;
         this.height = 64;
-        this.monsterPicture = new engine.Bitmap();
-        this.monsterPicture.texture = engine.RES.getRES(pictureId, (value) => {
+        this.monsterPicture = new cadence.Bitmap();
+        this.monsterPicture.texture = cadence.RES.getRES(pictureId, (value) => {
             this.monsterPicture.texture = value;
         })
         this.addChild(this.monsterPicture);

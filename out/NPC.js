@@ -1,5 +1,5 @@
 "use strict";
-class NPC extends engine.DisplayObjectContainer {
+class NPC extends cadence.DisplayObjectContainer {
     constructor(npcId, npcCode, dialogue) {
         super();
         this.dialogue = [];
@@ -23,10 +23,10 @@ class NPC extends engine.DisplayObjectContainer {
         this.NPCBitmap.touchEnabled = true;
         //this.onNPCClick();
         this.touchEnabled = true;
-        this.NPCBitmap.addEventListener(engine.TouchEventsType.CLICK, () => {
+        this.NPCBitmap.addEventListener(cadence.TouchEventsType.CLICK, () => {
             NPC.npcIsChoose = this;
         }, this);
-        this.emoji = new engine.Bitmap();
+        this.emoji = new cadence.Bitmap();
         let rule = (taskList) => {
             for (var taskId in taskList) {
                 if (taskList[taskId].fromNpcId == this.NPCId || taskList[taskId].toNpcId == this.NPCId) {
@@ -39,13 +39,13 @@ class NPC extends engine.DisplayObjectContainer {
                     this.canSumbitTaskList[taskId] = taskList[taskId];
                 }
                 if (taskList[taskId].fromNpcId == this.NPCId && taskList[taskId].status == TaskStatus.ACCEPTABLE) {
-                    this.emoji.texture = engine.RES.getRES("tanhao_yellow.png", (value) => {
+                    this.emoji.texture = cadence.RES.getRES("tanhao_yellow.png", (value) => {
                         this.emoji.texture = value;
                     });
                     this.taskList[taskId] = taskList[taskId];
                 }
                 if (this.NPCId == taskList[taskId].toNpcId && taskList[taskId].status == TaskStatus.CAN_SUBMIT) {
-                    this.emoji.texture = engine.RES.getRES("wenhao_yellow.png", (value) => {
+                    this.emoji.texture = cadence.RES.getRES("wenhao_yellow.png", (value) => {
                         this.emoji.texture = value;
                     });
                     this.taskList[taskId] = taskList[taskId];
@@ -66,7 +66,7 @@ class NPC extends engine.DisplayObjectContainer {
     onChange(task) {
         if (this.NPCId == task.fromNpcId && task.status == TaskStatus.ACCEPTABLE) {
             this.emoji.alpha = 1;
-            this.emoji.texture = engine.RES.getRES("tanhao_yellow.png", (value) => {
+            this.emoji.texture = cadence.RES.getRES("tanhao_yellow.png", (value) => {
                 this.emoji.texture = value;
             });
             this.taskList[task.id].status = TaskStatus.ACCEPTABLE;
@@ -74,7 +74,7 @@ class NPC extends engine.DisplayObjectContainer {
         }
         if (this.NPCId == task.toNpcId && task.status == TaskStatus.CAN_SUBMIT) {
             this.emoji.alpha = 1;
-            this.emoji.texture = engine.RES.getRES("wenhao_yellow.png", (value) => {
+            this.emoji.texture = cadence.RES.getRES("wenhao_yellow.png", (value) => {
                 this.emoji.texture = value;
             });
             this.taskList[task.id].status = TaskStatus.CAN_SUBMIT;
@@ -97,7 +97,7 @@ class NPC extends engine.DisplayObjectContainer {
                 if (this.NPCId == this.canSumbitTaskList[taskId].toNpcId
                     && this.canSumbitTaskList[taskId].status == TaskStatus.CAN_SUBMIT) {
                     this.emoji.alpha = 1;
-                    this.emoji.texture = engine.RES.getRES("wenhao_yellow.png", (value) => {
+                    this.emoji.texture = cadence.RES.getRES("wenhao_yellow.png", (value) => {
                         this.emoji.texture = value;
                     });
                     return;
@@ -107,7 +107,7 @@ class NPC extends engine.DisplayObjectContainer {
                 if (this.NPCId == this.taskList[taskId].fromNpcId
                     && this.taskList[taskId].status == TaskStatus.ACCEPTABLE) {
                     this.emoji.alpha = 1;
-                    this.emoji.texture = engine.RES.getRES("tanhao_yellow.png", (value) => {
+                    this.emoji.texture = cadence.RES.getRES("tanhao_yellow.png", (value) => {
                         this.emoji.texture = value;
                     });
                     return;
@@ -122,7 +122,7 @@ class NPC extends engine.DisplayObjectContainer {
                 if (this.NPCId == this.canSumbitTaskList[taskId].toNpcId
                     && this.canSumbitTaskList[taskId].status == TaskStatus.CAN_SUBMIT) {
                     this.emoji.alpha = 1;
-                    this.emoji.texture = engine.RES.getRES("wenhao_yellow.png", (value) => {
+                    this.emoji.texture = cadence.RES.getRES("wenhao_yellow.png", (value) => {
                         this.emoji.texture = value;
                     });
                     return;
@@ -132,7 +132,7 @@ class NPC extends engine.DisplayObjectContainer {
                 if (this.NPCId == this.taskList[taskId].fromNpcId
                     && this.taskList[taskId].status == TaskStatus.ACCEPTABLE) {
                     this.emoji.alpha = 1;
-                    this.emoji.texture = engine.RES.getRES("tanhao_yellow.png", (value) => {
+                    this.emoji.texture = cadence.RES.getRES("tanhao_yellow.png", (value) => {
                         this.emoji.texture = value;
                     });
                     return;
@@ -214,20 +214,20 @@ class NPC extends engine.DisplayObjectContainer {
             TalkCommand.canFinish = true;
     }
     getNPC() {
-        this.NPCBitmap.addEventListener(engine.TouchEventsType.CLICK, () => {
+        this.NPCBitmap.addEventListener(cadence.TouchEventsType.CLICK, () => {
             NPC.npcIsChoose = this;
         }, this);
     }
     createBitmapByName(name) {
-        var result = new engine.Bitmap();
-        result.texture = engine.RES.getRES(name, (value) => {
+        var result = new cadence.Bitmap();
+        result.texture = cadence.RES.getRES(name, (value) => {
             console.log(value);
             result.texture = value;
         });
         return result;
     }
 }
-class DialoguePanel extends engine.DisplayObjectContainer {
+class DialoguePanel extends cadence.DisplayObjectContainer {
     constructor() {
         super();
         this.dialogue = [];
@@ -248,7 +248,7 @@ class DialoguePanel extends engine.DisplayObjectContainer {
         this.button.x = 100;
         this.button.y = 200;
         this.button.touchEnabled = false;
-        this.textField = new engine.TextField();
+        this.textField = new cadence.TextField();
         this.addChild(this.textField);
         //this.textField.text = dialogue[0];
         //this.textField.text = "233"
@@ -272,7 +272,7 @@ class DialoguePanel extends engine.DisplayObjectContainer {
         this._tmain = main;
     }
     setButtonBitmap(buttonBitmapCode) {
-        this.button.texture = engine.RES.getRES(buttonBitmapCode, (value) => {
+        this.button.texture = cadence.RES.getRES(buttonBitmapCode, (value) => {
             this.button.texture = value;
         });
         // console.log(texture);
@@ -304,18 +304,18 @@ class DialoguePanel extends engine.DisplayObjectContainer {
         this.duringTaskConditionType = taskConditionType;
     }
     setBackgroundBitmap(backgroundCode) {
-        this.background.texture = engine.RES.getRES("duihuakuang.png", (value) => {
+        this.background.texture = cadence.RES.getRES("duihuakuang.png", (value) => {
             this.background.texture = value;
         });
     }
     onClick() {
-        this.button.addEventListener(engine.TouchEventsType.CLICK, () => {
+        this.button.addEventListener(cadence.TouchEventsType.CLICK, () => {
             console.log("dialogue on click");
             if (this.ifAccept) {
                 //TaskService.getInstance().accept(this.duringTask.id);
                 this.duringTask.accept();
                 this.button.touchEnabled = false;
-                this.button.texture = engine.RES.getRES("wancheng_gray.png", (value) => {
+                this.button.texture = cadence.RES.getRES("wancheng_gray.png", (value) => {
                     this.button.texture = value;
                 });
                 if (this.duringTask.conditionType == "npctalk") {
@@ -331,7 +331,7 @@ class DialoguePanel extends engine.DisplayObjectContainer {
             if (!this.ifAccept) {
                 //TaskService.getInstance().finish(this.duringTask.id);
                 this.duringTask.submit();
-                this.button.texture = engine.RES.getRES("jieshou_gray.png", (value) => {
+                this.button.texture = cadence.RES.getRES("jieshou_gray.png", (value) => {
                     this.button.texture = value;
                 });
                 //egret.Tween.get(this).to({alpha : 0},1000);
@@ -342,8 +342,8 @@ class DialoguePanel extends engine.DisplayObjectContainer {
         }, this);
     }
     createBitmapByName(name) {
-        var result = new engine.Bitmap();
-        result.texture = engine.RES.getRES(name, (value) => {
+        var result = new cadence.Bitmap();
+        result.texture = cadence.RES.getRES(name, (value) => {
             result.texture = value;
         });
         return result;

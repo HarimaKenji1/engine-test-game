@@ -4,13 +4,13 @@ var MonsterState;
     MonsterState[MonsterState["LIVE"] = 0] = "LIVE";
     MonsterState[MonsterState["DEAD"] = 1] = "DEAD";
 })(MonsterState || (MonsterState = {}));
-class Monster extends engine.DisplayObjectContainer {
+class Monster extends cadence.DisplayObjectContainer {
     constructor(id, name, pictureId, maxHP, x, y) {
         super();
         this.width = 64;
         this.height = 64;
-        this.monsterPicture = new engine.Bitmap();
-        this.monsterPicture.texture = engine.RES.getRES(pictureId, (value) => {
+        this.monsterPicture = new cadence.Bitmap();
+        this.monsterPicture.texture = cadence.RES.getRES(pictureId, (value) => {
             this.monsterPicture.texture = value;
         });
         this.addChild(this.monsterPicture);

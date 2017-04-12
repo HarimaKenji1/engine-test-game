@@ -220,7 +220,7 @@ function creatTask(id) {
     var condition = creatTaskCondition(info.condition);
     return new Task(id, info.name, info.desc, info.total, info.status, condition, info.condition, info.fromNpcId, info.toNpcId, info.preTaskListId, info.rewardEquipmentId);
 }
-class TaskPanel extends engine.DisplayObjectContainer {
+class TaskPanel extends cadence.DisplayObjectContainer {
     constructor() {
         super();
         this.show = [];
@@ -233,7 +233,7 @@ class TaskPanel extends engine.DisplayObjectContainer {
         this.background.height = 317;
         this.background.x = 0;
         this.background.y = 0;
-        this.textField = new engine.TextField();
+        this.textField = new cadence.TextField();
         this.addChild(this.textField);
         this.textField.x = this.width / 2 - 100;
         this.textField.y = this.height / 2;
@@ -269,8 +269,8 @@ class TaskPanel extends engine.DisplayObjectContainer {
         // }
     }
     createBitmapByName(name) {
-        var result = new engine.Bitmap();
-        result.texture = engine.RES.getRES(name, (value) => {
+        var result = new cadence.Bitmap();
+        result.texture = cadence.RES.getRES(name, (value) => {
             result.texture = value;
         });
         return result;
